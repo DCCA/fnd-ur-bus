@@ -1,7 +1,7 @@
 import React from 'react';
 
 const HelloWorld = () => (
-  <p>Hello World</p>
+  <p>_fnd ur bus</p>
 );
 
 export default HelloWorld;

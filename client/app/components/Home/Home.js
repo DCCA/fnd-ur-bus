@@ -86,20 +86,11 @@ class Home extends Component {
   render() {
     return (
       <>
-        <p>Counters:</p>
-
-        <ul>
-          { this.state.counters.map((counter, i) => (
-            <li key={i}>
-              <span>{counter.count} </span>
-              <button onClick={() => this.incrementCounter(i)}>+</button>
-              <button onClick={() => this.decrementCounter(i)}>-</button>
-              <button onClick={() => this.deleteCounter(i)}>x</button>
-            </li>
-          )) }
-        </ul>
-
-        <button onClick={this.newCounter}>New counter</button>
+       <p>Welcome to _find ur bus</p>
+       <p>Create a login so you can register your bus line.</p>
+       <button>Register</button>
+       <button>Login</button>
+       <button>Search</button>
       </>
     );
   }

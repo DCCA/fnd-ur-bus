@@ -1,3 +1,19 @@
 @charset "UTF-8";
+@import 'vendor/css-reset';
+@import 'vendor/sanitize';
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap');
 
-@import 'vendor/normalize';
+//Start style
+.app{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    color: #4AF626;
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+        url('/assets/img/bird-s-eye-view-photography-of-high-rise-buildings-2304917.jpg');
+    background-size: cover;
+    background-position: center;
+}
