@@ -1,99 +1,51 @@
-import React, { Component } from 'react';
-import 'whatwg-fetch';
+import React, {useState} from 'react'
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
+const Home = () => {
+  const [coordinates, setCoordinates] = useState({
+    lat: 0,
+    long: 0,
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
-    this.state = {
-      counters: []
-    };
+  const fetchCoordinatesHandler = async () => {
+    setIsLoading(true);
+    try {
+        const { coords } = await getCurrentPosition();
+        const { latitude, longitude } = coords;
+        // Handle coordinates
+        setCoordinates({
+          lat: latitude,
+          long: longitude,
+        })
+        // Loading
+        setIsLoading(false);
 
-    this.newCounter = this.newCounter.bind(this);
-    this.incrementCounter = this.incrementCounter.bind(this);
-    this.decrementCounter = this.decrementCounter.bind(this);
-    this.deleteCounter = this.deleteCounter.bind(this);
-
-    this._modifyCounter = this._modifyCounter.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('/api/counters')
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          counters: json
-        });
-      });
-  }
-
-  newCounter() {
-    fetch('/api/counters', { method: 'POST' })
-      .then(res => res.json())
-      .then(json => {
-        let data = this.state.counters;
-        data.push(json);
-
-        this.setState({
-          counters: data
-        });
-      });
-  }
-
-  incrementCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}/increment`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
-  }
-
-  decrementCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}/decrement`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
-  }
-
-  deleteCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}`, { method: 'DELETE' })
-      .then(_ => {
-        this._modifyCounter(index, null);
-      });
-  }
-
-  _modifyCounter(index, data) {
-    let prevData = this.state.counters;
-
-    if (data) {
-      prevData[index] = data;
-    } else {
-      prevData.splice(index, 1);
+    } catch (error) {
+        // Handle error
+        console.error(error);
+        setIsLoading(false);
     }
+  }
 
-    this.setState({
-      counters: prevData
+  function getCurrentPosition(options = {}) {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
     });
   }
 
-  render() {
+  if(isLoading){
     return (
-      <>
-       <p>Welcome to _find ur bus</p>
-       <p>Create a login so you can register your bus line.</p>
-       <button>Register</button>
-       <button>Login</button>
-       <button>Search</button>
-      </>
-    );
+      <p>Loading...</p>
+    )
   }
+
+  return (
+    <div>
+      <button onClick={fetchCoordinatesHandler} >Get Bus Stops</button>
+      <p>Latitude: {coordinates.lat} Longitude: {coordinates.long}</p>
+    </div>
+  )
 }
 
 export default Home;
+

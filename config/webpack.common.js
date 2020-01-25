@@ -1,3 +1,4 @@
+
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -13,7 +14,7 @@ module.exports = {
   entry: {
     'app': [
       helpers.root('client/app/index.js')
-    ]
+    ],
   },
 
   output: {
@@ -34,7 +35,9 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: helpers.root('client'),
-        loader: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+        }
       },
 
       // SCSS files
