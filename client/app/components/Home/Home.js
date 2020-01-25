@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const Home = () => {
+  // Set States
   const [coordinates, setCoordinates] = useState({
     lat: 0,
     long: 0
@@ -8,6 +9,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [busStops, setBusStops] = useState({});
 
+  // Get coordinations from user
   const fetchCoordinatesHandler = async () => {
     setIsLoading(true);
     try {
@@ -35,10 +37,31 @@ const Home = () => {
     });
   }
 
+  // Get the bus stops, based on the coordinates from user
   const fetchBusStops = () => {
     setIsLoading(true);
     // ?id=" + props.match.params.id)
     fetch("/get-bus-stops?lat=" + coordinates.lat + "&long=" + coordinates.long)
+      // Runs when success
+      .then(response => response.json())
+      .then(response => {
+        setIsLoading(false);
+        console.log(response);
+        setBusStops(response);
+      })
+      // Runs when error
+      .catch(error => {
+        setIsLoading(false);
+        setErrorList(error);
+      });
+  };
+
+  // Get the next 6 buses that will serve that bus stop
+  const fetchEstimates = event => {
+    const stop = event.currentTarget.getAttribute("value");
+    setIsLoading(true);
+
+    fetch("/get-bus-estimates?stops=" + stop)
       // Runs when success
       .then(response => response.json())
       .then(response => {
@@ -68,7 +91,11 @@ const Home = () => {
       {Object.keys(busStops).map(keys => {
         console.log(busStops[keys].StopNo);
         return (
-          <div key={busStops}>
+          <div
+            value={busStops[keys].StopNo}
+            className="mt3"
+            onClick={fetchEstimates.bind(this)}
+          >
             <h1>Name: {busStops[keys].Name}</h1>
             <p>On Street: {busStops[keys].OnStreet}</p>
           </div>
