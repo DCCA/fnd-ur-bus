@@ -8,6 +8,7 @@ const Home = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [busStops, setBusStops] = useState({});
+  const [estimates, setEstimates] = useState({});
 
   // Get coordinations from user
   const fetchCoordinatesHandler = async () => {
@@ -67,7 +68,7 @@ const Home = () => {
       .then(response => {
         setIsLoading(false);
         console.log(response);
-        setBusStops(response);
+        setEstimates(response);
       })
       // Runs when error
       .catch(error => {
