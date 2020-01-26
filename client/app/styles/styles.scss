@@ -21,3 +21,26 @@
   background-size: cover;
   background-position: center;
 }
+
+a:any-link {
+  color: #ff822d;
+}
+
+footer,
+header {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.8)
+  );
+  width: 100%;
+}
+
+button {
+  background-color: #4af626;
+  border-color: #404a3b;
+}
+
+.logo {
+  height: 3rem;
+}

@@ -85,8 +85,19 @@ const Home = () => {
   return (
     <div className="m3">
       <div className="flex flex-column m3">
-        <button onClick={fetchCoordinatesHandler}>Get Coords</button>
-        <button onClick={fetchBusStops}>Get Bus Stops</button>
+        <button
+          className="rounded m1 p1 bold"
+          onClick={fetchCoordinatesHandler}
+        >
+          Get Coords
+        </button>
+        <button
+          className="rounded m1 p1 bold"
+          onClick={fetchBusStops}
+          disabled={coordinates.lat === 0}
+        >
+          Get Bus Stops
+        </button>
       </div>
       <p className="m2">You are here: \/</p>
       <p>
