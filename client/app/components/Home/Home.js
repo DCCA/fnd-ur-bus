@@ -83,9 +83,12 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <button onClick={fetchBusStops}>API Test</button>
-      <button onClick={fetchCoordinatesHandler}>Get Bus Stops</button>
+    <div className="m3">
+      <div className="flex flex-column m3">
+        <button onClick={fetchCoordinatesHandler}>Get Coords</button>
+        <button onClick={fetchBusStops}>Get Bus Stops</button>
+      </div>
+      <p className="m2">You are here: \/</p>
       <p>
         Latitude: {coordinates.lat} Longitude: {coordinates.long}
       </p>
@@ -99,6 +102,25 @@ const Home = () => {
           >
             <h1>Name: {busStops[keys].Name}</h1>
             <p>On Street: {busStops[keys].OnStreet}</p>
+          </div>
+        );
+      })}
+      {Object.keys(estimates).map(keys => {
+        return (
+          <div className="mt3">
+            <h1>
+              Name / Num: {estimates[keys].RouteName} /{" "}
+              {estimates[keys].RouteNo}
+            </h1>
+            <p>Direction: {estimates[keys].Direction}</p>
+            {estimates[keys].Schedules.map(e => {
+              return (
+                <div>
+                  <p>Next bus in: {e.ExpectedCountdown}</p>
+                  <p>Scheduled: {e.ExpectedLeaveTime}</p>
+                </div>
+              );
+            })}
           </div>
         );
       })}
