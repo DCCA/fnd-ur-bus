@@ -9,7 +9,9 @@ const Home = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [busStops, setBusStops] = useState({});
+  const [showBusStops, setShowBusStops] = useState(false);
   const [estimates, setEstimates] = useState({});
+  const [showEstimates, setShowEstimates] = useState(false);
 
   // Get coordinations from user
   const fetchCoordinatesHandler = async () => {
@@ -49,6 +51,8 @@ const Home = () => {
       .then(response => {
         setIsLoading(false);
         setBusStops(response);
+        setShowBusStops(true);
+        setShowEstimates(false);
       })
       // Runs when error
       .catch(error => {
@@ -68,6 +72,8 @@ const Home = () => {
       .then(response => {
         setIsLoading(false);
         setEstimates(response);
+        setShowBusStops(false);
+        setShowEstimates(true);
       })
       // Runs when error
       .catch(error => {
@@ -76,30 +82,39 @@ const Home = () => {
       });
   };
 
+  function BusStopsList(props) {
+    if (!showBusStops) {
+      return null;
+    }
+    return (
+      <div>
+        <p>Working</p>
+      </div>
+    );
+  }
+
   // Handle loading
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p className="m3">Loading...</p>;
   }
 
   return (
     <div className="m3">
-      <h1>Welcome</h1>
-      <h3>Choose one of the options below:</h3>
-      <Link className="inline-block" to="/">
-        Search by current location
-      </Link>
-      <Link className="inline-block" to="/">
-        Search by typed adress
-      </Link>
-      <Link className="inline-block" to="/">
-        Search by bus line
-      </Link>
+      <div>
+        <h2>Instructions</h2>
+        <ol>
+          <li>1. Get your location</li>
+          <li>2. Get the near by bus stops</li>
+          <li>3. Select your bus stop</li>
+          <li>4. Get the next buses informations</li>
+        </ol>
+      </div>
       <div className="flex flex-column m3">
         <button
           className="rounded m1 p1 bold"
           onClick={fetchCoordinatesHandler}
         >
-          Get Coords
+          Get Your Location
         </button>
         <button
           className="rounded m1 p1 bold"
@@ -114,45 +129,51 @@ const Home = () => {
         <p className="p1">Latitude: {coordinates.lat}</p>
         <p className="p1">Longitude: {coordinates.long}</p>
       </div>
-      {Object.keys(busStops).map(keys => {
-        return (
-          <div
-            value={busStops[keys].StopNo}
-            className="mt3 p2 border rounded flex"
-            onClick={fetchEstimates.bind(this)}
-          >
-            <img src="https://via.placeholder.com/100"></img>
-            <div className="p2 flex flex-column">
-              <h1 className="p1 bold h3">Name:</h1>
-              <h1 className="p1">{busStops[keys].Name}</h1>
-              <p className="p1 h3">On Street:</p>
-              <p className="p1">{busStops[keys].OnStreet}</p>
-              <p className="p1 h3">Routes:</p>
-              <p className="p1">{busStops[keys].Routes}</p>
-              <button className="m1 flex-auto">Select</button>
-            </div>
-          </div>
-        );
-      })}
-      {Object.keys(estimates).map(keys => {
-        return (
-          <div className="mt3 p2 border rounded">
-            <h1>
-              Name / Num: {estimates[keys].RouteName} /{" "}
-              {estimates[keys].RouteNo}
-            </h1>
-            <p className="mt2 mb2">Direction: {estimates[keys].Direction}</p>
-            {estimates[keys].Schedules.map(e => {
-              return (
-                <div className="border rounded pt1 pb1 mt1 mb1">
-                  <p className="p1">Next bus in: {e.ExpectedCountdown}</p>
-                  <p className="p1">Scheduled: {e.ExpectedLeaveTime}</p>
+      {showBusStops
+        ? Object.keys(busStops).map(keys => {
+            return (
+              <div
+                value={busStops[keys].StopNo}
+                className="mt3 p2 border rounded flex"
+                onClick={fetchEstimates.bind(this)}
+              >
+                <img src="https://via.placeholder.com/100"></img>
+                <div className="p2 flex flex-column">
+                  <h1 className="p1 bold h3">Name:</h1>
+                  <h1 className="p1">{busStops[keys].Name}</h1>
+                  <p className="p1 h3">On Street:</p>
+                  <p className="p1">{busStops[keys].OnStreet}</p>
+                  <p className="p1 h3">Routes:</p>
+                  <p className="p1">{busStops[keys].Routes}</p>
+                  <button className="m1 flex-auto">Select</button>
                 </div>
-              );
-            })}
-          </div>
-        );
-      })}
+              </div>
+            );
+          })
+        : null}
+      {showEstimates
+        ? Object.keys(estimates).map(keys => {
+            return (
+              <div className="mt3 p2 border rounded">
+                <h1>
+                  Name / Num: {estimates[keys].RouteName} /{" "}
+                  {estimates[keys].RouteNo}
+                </h1>
+                <p className="mt2 mb2">
+                  Direction: {estimates[keys].Direction}
+                </p>
+                {estimates[keys].Schedules.map(e => {
+                  return (
+                    <div className="border rounded pt1 pb1 mt1 mb1">
+                      <p className="p1">Next bus in: {e.ExpectedCountdown}</p>
+                      <p className="p1">Scheduled: {e.ExpectedLeaveTime}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })
+        : null}
     </div>
   );
 };
