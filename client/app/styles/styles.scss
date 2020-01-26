@@ -14,12 +14,14 @@
   color: #4af626;
   background-image: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.6)
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
     ),
     url("/assets/img/bird-s-eye-view-photography-of-high-rise-buildings-2304917.jpg");
   background-size: cover;
   background-position: center;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 
 a:any-link {
@@ -45,6 +47,12 @@ header {
 button {
   background-color: #4af626;
   border-color: #404a3b;
+}
+
+a.buttons {
+  background-color: #4af626;
+  border-color: #404a3b;
+  color: black;
 }
 
 .logo {

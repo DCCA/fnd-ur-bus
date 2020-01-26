@@ -3,18 +3,21 @@ import { Link } from "react-router-dom";
 
 const Welcome = () => {
   return (
-    <div className="m3">
+    <div className="welcome m3 flex flex-column justify-center">
       <h1>Welcome</h1>
       <h3>Choose one of the options below:</h3>
-      <Link className="inline-block" to="/home">
+      <Link
+        className="mt2 p2 inline-block border rounded center buttons"
+        to="/home"
+      >
         Search by current location
       </Link>
-      <Link className="inline-block" to="/" onClick={e => e.preventDefault()}>
+      {/* <Link className="inline-block" to="/" onClick={e => e.preventDefault()}>
         Search by typed address
       </Link>
       <Link className="inline-block" to="/" onClick={e => e.preventDefault()}>
         Search by bus line
-      </Link>
+      </Link> */}
     </div>
   );
 };
