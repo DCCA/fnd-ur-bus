@@ -47,13 +47,12 @@ const Home = () => {
       .then(response => response.json())
       .then(response => {
         setIsLoading(false);
-        console.log(response);
         setBusStops(response);
       })
       // Runs when error
       .catch(error => {
         setIsLoading(false);
-        setErrorList(error);
+        console.log(error);
       });
   };
 
@@ -67,7 +66,6 @@ const Home = () => {
       .then(response => response.json())
       .then(response => {
         setIsLoading(false);
-        console.log(response);
         setEstimates(response);
       })
       // Runs when error
@@ -104,7 +102,6 @@ const Home = () => {
         Latitude: {coordinates.lat} Longitude: {coordinates.long}
       </p>
       {Object.keys(busStops).map(keys => {
-        console.log(busStops[keys].StopNo);
         return (
           <div
             value={busStops[keys].StopNo}
