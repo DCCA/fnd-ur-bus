@@ -1,11 +1,11 @@
 {
-  "name": "MERN-boilerplate",
+  "name": "fnd ur bus",
   "version": "1.0.0",
-  "description": "MERN stack project boilerplate",
-  "author": "Eugene Cheung",
+  "description": "A app for you to search a bus in Vancouver",
+  "author": "Daniel Andrade",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkon/MERN-boilerplate.git"
+    "url": "git+https://github.com/DCCA/fnd-ur-bus"
   },
   "license": "MIT",
   "private": true,
