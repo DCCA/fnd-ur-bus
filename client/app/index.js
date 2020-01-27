@@ -9,8 +9,6 @@ import NotFound from "./components/App/NotFound";
 import Home from "./components/Home/Home";
 import Welcome from "./components/Welcome/Welcome";
 
-import HelloWorld from "./components/HelloWorld/HelloWorld";
-
 import "./styles/styles.scss";
 
 render(
@@ -19,7 +17,6 @@ render(
       <Switch>
         <Route exact path="/" component={Welcome} />
         <Route exact path="/home" component={Home} />
-        <Route path="/helloworld" component={HelloWorld} />
         <Route component={NotFound} />
       </Switch>
     </App>
