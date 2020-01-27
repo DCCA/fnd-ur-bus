@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { api_key } from "../../../../config/config";
 
 const Home = () => {
   // Set States
@@ -137,7 +138,20 @@ const Home = () => {
                 className="mt3 p2 border rounded flex"
                 onClick={fetchEstimates.bind(this)}
               >
-                <img src="https://via.placeholder.com/100"></img>
+                <img
+                  src={
+                    "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                    busStops[keys].Latitude +
+                    "," +
+                    busStops[keys].Longitude +
+                    "&zoom=15&size=130x200&maptype=roadmap&markers=color:red%7Clabel:C%7C" +
+                    busStops[keys].Latitude +
+                    "," +
+                    busStops[keys].Longitude +
+                    "&key=" +
+                    api_key
+                  }
+                ></img>
                 <div className="p2 flex flex-column">
                   <h1 className="p1 bold h3">Name:</h1>
                   <h1 className="p1">{busStops[keys].Name}</h1>
