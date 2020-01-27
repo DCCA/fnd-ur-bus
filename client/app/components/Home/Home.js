@@ -83,17 +83,6 @@ const Home = () => {
       });
   };
 
-  function BusStopsList(props) {
-    if (!showBusStops) {
-      return null;
-    }
-    return (
-      <div>
-        <p>Working</p>
-      </div>
-    );
-  }
-
   // Handle loading
   if (isLoading) {
     return <p className="m3">Loading...</p>;
@@ -139,17 +128,6 @@ const Home = () => {
                 onClick={fetchEstimates.bind(this)}
               >
                 <img
-                  // src={
-                  //   "https://maps.googleapis.com/maps/api/staticmap?center=" +
-                  //   busStops[keys].Latitude +
-                  //   "," +
-                  //   busStops[keys].Longitude +
-                  //   "&zoom=15&size=130x200&maptype=roadmap&markers=color:red%7Clabel:C%7C" +
-                  //   busStops[keys].Latitude +
-                  //   "," +
-                  //   busStops[keys].Longitude +
-                  //   "&key=" +
-                  //   api_key
                   src={
                     "/get-maps?lat=" +
                     busStops[keys].Latitude +
