@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { api_key } from "../../../../config/config";
+// import { api_key } from "../../../../config/config";
 
 const Home = () => {
   // Set States
