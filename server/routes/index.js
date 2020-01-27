@@ -72,8 +72,8 @@ module.exports = app => {
     console.log(urlApi);
     request(options, function(error, response, body) {
       if (!error && response.statusCode == 200) {
-        // console.log(body);
-        res.sendFile(body);
+        console.log(urlApi);
+        res.send(urlApi);
       }
     });
   });

@@ -139,17 +139,22 @@ const Home = () => {
                 onClick={fetchEstimates.bind(this)}
               >
                 <img
+                  // src={
+                  //   "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                  //   busStops[keys].Latitude +
+                  //   "," +
+                  //   busStops[keys].Longitude +
+                  //   "&zoom=15&size=130x200&maptype=roadmap&markers=color:red%7Clabel:C%7C" +
+                  //   busStops[keys].Latitude +
+                  //   "," +
+                  //   busStops[keys].Longitude +
+                  //   "&key=" +
+                  //   api_key
                   src={
-                    "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                    "/get-maps?lat=" +
                     busStops[keys].Latitude +
-                    "," +
-                    busStops[keys].Longitude +
-                    "&zoom=15&size=130x200&maptype=roadmap&markers=color:red%7Clabel:C%7C" +
-                    busStops[keys].Latitude +
-                    "," +
-                    busStops[keys].Longitude +
-                    "&key=" +
-                    api_key
+                    "&long=" +
+                    busStops[keys].Longitude
                   }
                 ></img>
                 <div className="p2 flex flex-column">
