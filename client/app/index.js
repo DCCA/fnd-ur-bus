@@ -10,6 +10,7 @@ import Home from "./components/Home/Home";
 import Welcome from "./components/Welcome/Welcome";
 
 import "./styles/styles.scss";
+import Register from "./components/Register/Register";
 
 render(
   <Router>
@@ -17,6 +18,7 @@ render(
       <Switch>
         <Route exact path="/" component={Welcome} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="/login" component={Register} />
         <Route component={NotFound} />
       </Switch>
     </App>
