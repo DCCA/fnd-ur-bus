@@ -1,17 +1,17 @@
-require("dotenv").config();
+const dotenv = require('dotenv');
+dotenv.config();
+const express = require('express');
+const fs = require('fs');
+const historyApiFallback = require('connect-history-api-fallback');
+const mongoose = require('mongoose');
+const path = require('path');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const express = require("express");
-const fs = require("fs");
-const historyApiFallback = require("connect-history-api-fallback");
-const mongoose = require("mongoose");
-const path = require("path");
-const webpack = require("webpack");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackHotMiddleware = require("webpack-hot-middleware");
+const webpackConfig = require('../webpack.config');
 
-const webpackConfig = require("../webpack.config");
-
-const isDev = process.env.NODE_ENV !== "production";
+const isDev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 8080;
 
 // Configuration
@@ -26,7 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // API routes
-require("./routes")(app);
+require('./routes')(app);
+
+console.log(process.env.API_MAPS_KEY);
 
 if (isDev) {
   const compiler = webpack(webpackConfig);
@@ -40,7 +42,7 @@ if (isDev) {
   app.use(
     webpackDevMiddleware(compiler, {
       publicPath: webpackConfig.output.publicPath,
-      contentBase: path.resolve(__dirname, "../client/public"),
+      contentBase: path.resolve(__dirname, '../client/public'),
       stats: {
         colors: true,
         hash: false,
@@ -53,21 +55,21 @@ if (isDev) {
   );
 
   app.use(webpackHotMiddleware(compiler));
-  app.use(express.static(path.resolve(__dirname, "../dist")));
+  app.use(express.static(path.resolve(__dirname, '../dist')));
 } else {
-  app.use(express.static(path.resolve(__dirname, "../dist")));
-  app.get("*", function(req, res) {
-    res.sendFile(path.resolve(__dirname, "../dist/index.html"));
+  app.use(express.static(path.resolve(__dirname, '../dist')));
+  app.get('*', function(req, res) {
+    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
     res.end();
   });
 }
 
-app.listen(port, "0.0.0.0", err => {
+app.listen(port, '0.0.0.0', err => {
   if (err) {
     console.log(err);
   }
 
-  console.info(">>> 🌎 Open http://0.0.0.0:%s/ in your browser.", port);
+  console.info('>>> 🌎 Open http://0.0.0.0:%s/ in your browser.', port);
 });
 
 module.exports = app;

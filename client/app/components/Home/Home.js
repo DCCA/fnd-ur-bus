@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-// import { api_key } from "../../../../config/config";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   // Set States
@@ -13,6 +12,12 @@ const Home = () => {
   const [showBusStops, setShowBusStops] = useState(false);
   const [estimates, setEstimates] = useState({});
   const [showEstimates, setShowEstimates] = useState(false);
+  const [maps, setMaps] = useState({});
+
+  useEffect(() => {
+    getMaps();
+    console.log(maps);
+  }, []);
 
   // Get coordinations from user
   const fetchCoordinatesHandler = async () => {
@@ -46,7 +51,7 @@ const Home = () => {
   const fetchBusStops = () => {
     setIsLoading(true);
     // ?id=" + props.match.params.id)
-    fetch("/get-bus-stops?lat=" + coordinates.lat + "&long=" + coordinates.long)
+    fetch('/get-bus-stops?lat=' + coordinates.lat + '&long=' + coordinates.long)
       // Runs when success
       .then(response => response.json())
       .then(response => {
@@ -64,10 +69,10 @@ const Home = () => {
 
   // Get the next 6 buses that will serve that bus stop
   const fetchEstimates = event => {
-    const stop = event.currentTarget.getAttribute("value");
+    const stop = event.currentTarget.getAttribute('value');
     setIsLoading(true);
 
-    fetch("/get-bus-estimates?stops=" + stop)
+    fetch('/get-bus-estimates?stops=' + stop)
       // Runs when success
       .then(response => response.json())
       .then(response => {
@@ -82,67 +87,81 @@ const Home = () => {
         setErrorList(error);
       });
   };
+  // Get maps
+  const getMaps = () => {
+    fetch('/set-maps')
+      .then(response => response.text())
+      .then(response => {
+        console.log(response);
+        setMaps(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   // Handle loading
   if (isLoading) {
-    return <p className="m3">Loading...</p>;
+    return <p className='m3'>Loading...</p>;
   }
 
   return (
-    <div className="m3">
+    <div className='m3'>
       <div>
         <h2>Instructions</h2>
         <ol>
           <li>1. Get your location</li>
           <li>2. Get bus stops</li>
           <li>3. Select your bus stop</li>
-          <li>4. Get the next buses informations</li>
+          <li>4. Get the next buses information</li>
         </ol>
       </div>
-      <div className="flex flex-column m3">
+      <div className='flex flex-column m3'>
         <button
-          className="rounded m1 p1 bold"
+          className='rounded m1 p1 bold'
           onClick={fetchCoordinatesHandler}
         >
           Get Your Location
         </button>
         <button
-          className="rounded m1 p1 bold"
+          className='rounded m1 p1 bold'
           onClick={fetchBusStops}
           disabled={coordinates.lat === 0}
         >
           Get Bus Stops
         </button>
       </div>
-      <div className="border rounded p1">
-        <p className="p1">You are here: \/</p>
-        <p className="p1">Latitude: {coordinates.lat}</p>
-        <p className="p1">Longitude: {coordinates.long}</p>
+      <div className='border rounded p1'>
+        <p className='p1'>You are here: \/</p>
+        <p className='p1'>Latitude: {coordinates.lat}</p>
+        <p className='p1'>Longitude: {coordinates.long}</p>
       </div>
       {showBusStops
         ? Object.keys(busStops).map(keys => {
             return (
               <div
                 value={busStops[keys].StopNo}
-                className="mt3 p2 border rounded flex"
+                className='mt3 p2 border rounded flex'
                 onClick={fetchEstimates.bind(this)}
               >
                 <img
                   src={
-                    "/get-maps?lat=" +
+                    'https://maps.googleapis.com/maps/api/staticmap?center=' +
                     busStops[keys].Latitude +
-                    "&long=" +
-                    busStops[keys].Longitude
+                    ',' +
+                    busStops[keys].Longitude +
+                    '&zoom=13&size=100x100&maptype=roadmap&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=' +
+                    maps
                   }
                 ></img>
-                <div className="p2 flex flex-column">
-                  <h1 className="p1 bold h3">Name:</h1>
-                  <h1 className="p1">{busStops[keys].Name}</h1>
-                  <p className="p1 h3">On Street:</p>
-                  <p className="p1">{busStops[keys].OnStreet}</p>
-                  <p className="p1 h3">Routes:</p>
-                  <p className="p1">{busStops[keys].Routes}</p>
-                  <button className="m1 flex-auto">Select</button>
+                <div className='p2 flex flex-column'>
+                  <h1 className='p1 bold h3'>Name:</h1>
+                  <h1 className='p1'>{busStops[keys].Name}</h1>
+                  <p className='p1 h3'>On Street:</p>
+                  <p className='p1'>{busStops[keys].OnStreet}</p>
+                  <p className='p1 h3'>Routes:</p>
+                  <p className='p1'>{busStops[keys].Routes}</p>
+                  <button className='m1 flex-auto'>Select</button>
                 </div>
               </div>
             );
@@ -151,19 +170,19 @@ const Home = () => {
       {showEstimates
         ? Object.keys(estimates).map(keys => {
             return (
-              <div className="mt3 p2 border rounded">
+              <div className='mt3 p2 border rounded'>
                 <h1>
-                  Name / Num: {estimates[keys].RouteName} /{" "}
+                  Name / Num: {estimates[keys].RouteName} /{' '}
                   {estimates[keys].RouteNo}
                 </h1>
-                <p className="mt2 mb2">
+                <p className='mt2 mb2'>
                   Direction: {estimates[keys].Direction}
                 </p>
                 {estimates[keys].Schedules.map(e => {
                   return (
-                    <div className="border rounded pt1 pb1 mt1 mb1">
-                      <p className="p1">Next bus in: {e.ExpectedCountdown}</p>
-                      <p className="p1">Scheduled: {e.ExpectedLeaveTime}</p>
+                    <div className='border rounded pt1 pb1 mt1 mb1'>
+                      <p className='p1'>Next bus in: {e.ExpectedCountdown}</p>
+                      <p className='p1'>Scheduled: {e.ExpectedLeaveTime}</p>
                     </div>
                   );
                 })}
