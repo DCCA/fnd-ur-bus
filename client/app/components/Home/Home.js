@@ -159,6 +159,7 @@ const Home = () => {
                   style={{
                     width: "60%",
                     backgroundImage:
+                      "url(https://picsum.photos/300/300)," +
                       "url(" +
                       "https://maps.googleapis.com/maps/api/staticmap?center=" +
                       busStops[keys].Latitude +
