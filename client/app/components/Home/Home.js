@@ -133,7 +133,7 @@ const Home = () => {
               <BusStopCard
                 key={busStops[keys].StopNo}
                 busStops={busStops[keys]}
-                mapsKey={maps}
+                maps={maps}
                 fetchEstimates={fetchEstimates}
               />
             );

@@ -17,19 +17,19 @@ export default function BusStopCard(props) {
         style={{
           width: '60%',
           backgroundImage:
-            // 'url(' +
-            // 'https://maps.googleapis.com/maps/api/staticmap?center=' +
-            // props.busStops.Latitude +
-            // ',' +
-            // props.busStops.Longitude +
-            // '&zoom=16&size=200x200&maptype=roadmap&markers=color:green%7C' +
-            // '%7C' +
-            // props.busStops.Latitude +
-            // ',' +
-            // props.busStops.Longitude +
-            // '&key=' +
-            // props.maps +
-            // '),
+            'url(' +
+            'https://maps.googleapis.com/maps/api/staticmap?center=' +
+            props.busStops.Latitude +
+            ',' +
+            props.busStops.Longitude +
+            '&zoom=16&size=200x200&maptype=roadmap&markers=color:green%7C' +
+            '%7C' +
+            props.busStops.Latitude +
+            ',' +
+            props.busStops.Longitude +
+            '&key=' +
+            props.maps +
+            '),' +
             'url(https://picsum.photos/300/300)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
