@@ -18,12 +18,13 @@ module.exports = app => {
       url: urlApi,
       headers: {
         'content-type': 'application/JSON'
-      }
+      },
+      json: true
     };
     rp(options)
-      .then(data => (data = JSON.parse(data)))
-      .then(data => res.send(data))
+      .then(data => res.send(data.filter(elem => elem.Routes !== '')))
       .catch(err => console.log(err));
+    // Filter if .busStops.Routes is empty
   });
   // Get bus estimates based on the bus stop selected
   app.get('/get-bus-estimates', (req, res) => {
@@ -37,10 +38,10 @@ module.exports = app => {
       url: urlApi,
       headers: {
         'content-type': 'application/JSON'
-      }
+      },
+      json: true
     };
     rp(options)
-      .then(data => (data = JSON.parse(data)))
       .then(data => res.send(data))
       .catch(err => console.log(err));
   });

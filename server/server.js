@@ -28,8 +28,6 @@ app.use(express.json());
 // API routes
 require('./routes')(app);
 
-console.log(process.env.API_MAPS_KEY);
-
 if (isDev) {
   const compiler = webpack(webpackConfig);
 
