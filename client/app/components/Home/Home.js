@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BusStopCard from '../BusStopsCard/BusStopCard';
+import EstimatesCard from '../EstimatesCard/EstimatesCard';
 
 const Home = () => {
   // Set States
@@ -146,25 +147,7 @@ const Home = () => {
         : null}
       {showEstimates
         ? Object.keys(estimates).map(keys => {
-            return (
-              <div className='mt3 p2 border rounded'>
-                <h1>
-                  Name / Num: {estimates[keys].RouteName} /{' '}
-                  {estimates[keys].RouteNo}
-                </h1>
-                <p className='mt2 mb2'>
-                  Direction: {estimates[keys].Direction}
-                </p>
-                {estimates[keys].Schedules.map(e => {
-                  return (
-                    <div className='border rounded pt1 pb1 mt1 mb1'>
-                      <p className='p1'>Next bus in: {e.ExpectedCountdown}</p>
-                      <p className='p1'>Scheduled: {e.ExpectedLeaveTime}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            );
+            return <EstimatesCard estimates={estimates[keys]} />;
           })
         : null}
     </div>
