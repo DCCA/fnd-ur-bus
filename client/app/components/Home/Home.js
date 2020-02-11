@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BusStopCard from '../BusStopsCard/BusStopCard';
 import EstimatesCard from '../EstimatesCard/EstimatesCard';
+import Instructions from './Instructions';
 
 const Home = () => {
   // Set States
@@ -105,15 +106,7 @@ const Home = () => {
 
   return (
     <div className='m3'>
-      <div>
-        <h2>Instructions</h2>
-        <ol>
-          <li>1. Get your location</li>
-          <li>2. Get bus stops</li>
-          <li>3. Select your bus stop</li>
-          <li>4. Get the next buses information</li>
-        </ol>
-      </div>
+      <Instructions />
       <div className='flex flex-column m3'>
         <button
           className='rounded m1 p1 bold'
