@@ -1,6 +1,6 @@
 const API_KEY = process.env.API_KEY;
 const API_MAPS_KEY = process.env.API_MAPS_KEY;
-const request = require('request');
+const rp = require('request-promise');
 
 module.exports = app => {
   // Get Bus Stops Near the User
@@ -20,12 +20,10 @@ module.exports = app => {
         'content-type': 'application/JSON'
       }
     };
-    request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        let jData = JSON.parse(body);
-        res.send(jData);
-      }
-    });
+    rp(options)
+      .then(data => (data = JSON.parse(data)))
+      .then(data => res.send(data))
+      .catch(err => console.log(err));
   });
   // Get bus estimates based on the bus stop selected
   app.get('/get-bus-estimates', (req, res) => {
@@ -41,38 +39,12 @@ module.exports = app => {
         'content-type': 'application/JSON'
       }
     };
-    request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        let jData = JSON.parse(body);
-        res.send(jData);
-      }
-    });
+    rp(options)
+      .then(data => (data = JSON.parse(data)))
+      .then(data => res.send(data))
+      .catch(err => console.log(err));
   });
-  // Handle Google Static Maps call
-  app.get('/get-maps', (req, res) => {
-    let lat = req.query.lat;
-    let long = req.query.long;
-    const urlApi =
-      'https://maps.googleapis.com/maps/api/staticmap?center=' +
-      lat +
-      ',' +
-      long +
-      '&zoom=16&size=300x300&maptype=roadmap' +
-      '&markers=color:red%7Clabel:C%7C' +
-      lat +
-      ',' +
-      long +
-      '&key=' +
-      API_MAPS_KEY;
-    let options = {
-      url: urlApi
-    };
-    request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        res.send(urlApi);
-      }
-    });
-  });
+  // Send api key for maps
   app.get('/set-maps', (req, res) => {
     res.send(API_MAPS_KEY);
   });
