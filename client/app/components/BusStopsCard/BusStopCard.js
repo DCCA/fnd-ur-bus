@@ -38,6 +38,8 @@ export default function BusStopCard(props) {
       <div className='p2 flex flex-column'>
         <h1 className='p1 bold h3'>Name:</h1>
         <h1 className='p1'>{props.busStops.Name}</h1>
+        <p className='p1 h3'>Stop Numb:</p>
+        <p className='p1'>{props.busStops.StopNo}</p>
         <p className='p1 h3'>On Street:</p>
         <p className='p1'>{props.busStops.OnStreet}</p>
         <p className='p1 h3'>Routes:</p>
