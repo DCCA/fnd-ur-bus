@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import BusStopCard from '../BusStopsCard/BusStopCard';
 
 const Home = () => {
   // Set States
@@ -135,42 +136,11 @@ const Home = () => {
       {showBusStops
         ? Object.keys(busStops).map(keys => {
             return (
-              <div
-                value={busStops[keys].StopNo}
-                className='mt3 p2 border rounded flex'
-                onClick={fetchEstimates.bind(this)}
-              >
-                <div
-                  style={{
-                    width: '60%',
-                    backgroundImage:
-                      'url(' +
-                      'https://maps.googleapis.com/maps/api/staticmap?center=' +
-                      busStops[keys].Latitude +
-                      ',' +
-                      busStops[keys].Longitude +
-                      '&zoom=16&size=200x200&maptype=roadmap&markers=color:green%7C' +
-                      '%7C' +
-                      busStops[keys].Latitude +
-                      ',' +
-                      busStops[keys].Longitude +
-                      '&key=' +
-                      maps +
-                      '), url(https://picsum.photos/300/300)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
-                ></div>
-                <div className='p2 flex flex-column'>
-                  <h1 className='p1 bold h3'>Name:</h1>
-                  <h1 className='p1'>{busStops[keys].Name}</h1>
-                  <p className='p1 h3'>On Street:</p>
-                  <p className='p1'>{busStops[keys].OnStreet}</p>
-                  <p className='p1 h3'>Routes:</p>
-                  <p className='p1'>{busStops[keys].Routes}</p>
-                  <button className='m1 flex-auto'>Select</button>
-                </div>
-              </div>
+              <BusStopCard
+                busStops={busStops[keys]}
+                mapsKey={maps}
+                fetchEstimates={fetchEstimates}
+              />
             );
           })
         : null}
