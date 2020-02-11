@@ -131,6 +131,7 @@ const Home = () => {
         ? Object.keys(busStops).map(keys => {
             return (
               <BusStopCard
+                key={busStops[keys].StopNo}
                 busStops={busStops[keys]}
                 mapsKey={maps}
                 fetchEstimates={fetchEstimates}
@@ -140,7 +141,12 @@ const Home = () => {
         : null}
       {showEstimates
         ? Object.keys(estimates).map(keys => {
-            return <EstimatesCard estimates={estimates[keys]} />;
+            return (
+              <EstimatesCard
+                key={estimates[keys].RouteName}
+                estimates={estimates[keys]}
+              />
+            );
           })
         : null}
     </div>
