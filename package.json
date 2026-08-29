@@ -37,7 +37,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.12.19",
-    "react-router": "^4.2.0",
+    "react-router": "^6.30.4",
     "react-router-dom": "^4.2.2",
     "request-promise": "^4.2.5",
     "sass-loader": "^6.0.7",
